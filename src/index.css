@@ -14,7 +14,27 @@ main {
   margin: 0;
 }
 
+main button {
+  background-color: #355872;
+  margin: 0 2%;
+  padding: 1%;
+}
+
+main article {
+  border: 1px solid #355872;
+  padding: 1%;
+  margin: 1% 0;
+}
+
 h2 {
   margin: 0;
   text-align: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }

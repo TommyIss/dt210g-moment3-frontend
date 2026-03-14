@@ -3,6 +3,7 @@ import Layout from "./components/Layout";
 import HomePage from "./Pages/HomePage";
 import ProfilePage from "./Pages/ProfilePage";
 import LoginPage from "./Pages/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 const router = createBrowserRouter([
@@ -16,7 +17,12 @@ const router = createBrowserRouter([
             },
             {
                 path: '/profile',
-                element: <ProfilePage />
+                element: (
+                    <ProtectedRoute>
+                        <ProfilePage />
+                    </ProtectedRoute>
+                    
+                )
             },
             {
                 path: '/login',

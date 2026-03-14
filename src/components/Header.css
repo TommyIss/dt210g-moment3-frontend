@@ -22,15 +22,17 @@ li {
     padding: 2%;
 }
 
-a {
+a, button {
     text-decoration: none;
     color: #F7F8F0;
     white-space: nowrap;
     padding: 10%;
     border-radius: 10px 0;
+    cursor: pointer;
+    background: none;
 }
 
-a:hover {
+a:hover, button:hover {
     background-color: #7AAACE;
 }
 
