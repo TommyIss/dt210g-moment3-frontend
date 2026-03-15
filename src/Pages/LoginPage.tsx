@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Notification from "../components/Notification";
 
 function LoginPage() {
 
@@ -10,6 +11,21 @@ function LoginPage() {
 
     const {login, user} = useAuth();
     const navigate = useNavigate();
+
+    const [notification, setNotification] = useState<{
+    message: string;
+    type: "success" | "error";
+  } | null>(null);
+
+
+  // Visa notis
+  function showNotification(
+    message: string,
+    type: "success" | "error" = "success",
+  ) {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  }
 
     // Kontrollera användaren
     useEffect(() => {
@@ -26,7 +42,7 @@ function LoginPage() {
             await login({email, password});
             navigate('/profile');
         } catch (error) {
-            setError('Inloggningen misslyckades. Kontrollera att du har korrekt e-post och lösenord.');
+            showNotification('Inloggningen misslyckades. Kontrollera att du har korrekt e-post och lösenord.', 'error');
         }
     }
 
@@ -36,9 +52,11 @@ function LoginPage() {
             <fieldset>
                 <legend>Logga in</legend>
                 <form onSubmit={handleSubmit}>
-                    {error && (
-                        <span>{error}</span>
-                    )}
+                    {
+                    notification && (
+                        <Notification message={notification.message} type={notification.type} />
+                    )
+                    }
 
                     <label htmlFor="email">E-post:</label>
                     <br />

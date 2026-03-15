@@ -1,10 +1,11 @@
 import { useState } from "react";
 import type { User } from "../types/auth.types";
+import './UserForm.css'
 
 interface UserFormProps {
   createUser: (user: Omit<User, "id" | "role">) => void;
-  setFormType: (type: string | null) => void;
-  formType: string | null
+  setFormType?: (type: string | null) => void;
+  formType?: string | null
 }
 
 function UserForm({ createUser, setFormType, formType }: UserFormProps) {
@@ -19,14 +20,20 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
     event.preventDefault();
 
     createUser(newUser);
-    setTimeout(() => {
-      setFormType(null)
-    }, 1500 );
+
+    if(setFormType) {
+
+      setTimeout(() => {
+        setFormType(null)
+      }, 1500 );
+    
+    }
+    
   }
 
   return (
     <fieldset>
-      <legend>Lägg till en ny {formType === 'user' && 'användare'}{formType === 'admin' && 'admin'}</legend>
+      <legend>Skapa ett nytt konto för {formType === 'user' && 'användare'}{formType === 'admin' && 'admin'}</legend>
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstname">Förnamn:</label>
         <input
@@ -68,8 +75,16 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
           }
         />
         <br />
-        <button type="submit" onClick={() => createUser(newUser)}>Spara</button>
-        <button type="button" onClick={() => setFormType(null)}>Avbryt</button>
+
+        <button type="submit">Skapa konto</button>
+
+        {/* Om det inte är kontoregistrering */}
+        {
+          setFormType && 
+          <button type="submit">Spara</button> &&
+          <button type="button" onClick={() => setFormType(null)}>Avbryt</button>
+        }
+        
       </form>
     </fieldset>
   );
