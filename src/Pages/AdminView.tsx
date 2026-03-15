@@ -50,7 +50,9 @@ function AdminView({inloggedUser, otherUsers, createAdmin, createUser, updateUse
             
             <h3>Andras konton</h3>
             <div className="flex-container">
-                
+                {
+                    otherUsers.length === 0 && <p>Inga andra användare har lagts till...</p>
+                }
                 
                 {
                     otherUsers.map((user) => 

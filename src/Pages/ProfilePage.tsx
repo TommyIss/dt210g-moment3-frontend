@@ -44,7 +44,8 @@ function ProfilePage() {
             if(response.ok) {
                 const data = await response.json();
 
-                setUsers(data);
+                const otherUser = data.filter((otherUser: User) => otherUser.id !== user?.id);
+                setUsers(otherUser);
             }
 
         } catch (error) {
