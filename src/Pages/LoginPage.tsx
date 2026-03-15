@@ -41,8 +41,9 @@ function LoginPage() {
         try {
             await login({email, password});
             navigate('/profile');
-        } catch (error) {
-            showNotification('Inloggningen misslyckades. Kontrollera att du har korrekt e-post och lösenord.', 'error');
+        } catch (err) {
+            setError('Inloggningen misslyckades. Kontrollera att du har korrekt e-post och lösenord.');
+            showNotification(error, 'error');
         }
     }
 
