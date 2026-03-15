@@ -39,7 +39,6 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
         <input
           type="text"
           value={newUser.firstname}
-          required
           onChange={(event) =>
             setNewUser({ ...newUser, firstname: event.target.value })
           }
@@ -49,7 +48,6 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
         <input
           type="text"
           value={newUser.lastname}
-          required
           onChange={(event) =>
             setNewUser({ ...newUser, lastname: event.target.value })
           }
@@ -59,7 +57,6 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
         <input
           type="email"
           value={newUser.email}
-          required
           onChange={(event) =>
             setNewUser({ ...newUser, email: event.target.value })
           }
@@ -69,7 +66,6 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
         <input
           type="password"
           value={newUser.password}
-          required
           onChange={(event) =>
             setNewUser({ ...newUser, password: event.target.value })
           }
@@ -81,8 +77,13 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
         {/* Om det inte är kontoregistrering */}
         {
           setFormType && 
-          <button type="submit">Spara</button> &&
-          <button type="button" onClick={() => setFormType(null)}>Avbryt</button>
+          (
+            <>
+              <button type="submit">Spara</button> 
+              <button type="button" onClick={() => setFormType(null)}>Avbryt</button>
+            </>
+          
+        )
         }
         
       </form>

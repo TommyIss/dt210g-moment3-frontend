@@ -22,6 +22,23 @@ function RegisterPage() {
 
   async function createNewUser(newData: Omit<User, "id" | "role">) {
     try {
+
+      if(!newData.firstname || newData.firstname === '') {
+        showNotification('Förnamn saknas!', 'error');
+        return;
+      }
+      if(!newData.lastname || newData.lastname === '') {
+        showNotification('Efternamn saknas!', 'error');
+        return;
+      }
+      if(!newData.email || newData.email === '') {
+        showNotification('E-post saknas!', 'error');
+        return;
+      }
+      if(!newData.password || newData.password === '') {
+        showNotification('Lösenord saknas!', 'error');
+        return;
+      }
       let url =
         "https://tois-dt210g-moment3-backend.onrender.com/auth/register";
 
@@ -56,6 +73,9 @@ function RegisterPage() {
   return (
     <div>
       <h2>Skapa konto</h2>
+      <p>
+        I denna sida kan du skapa ett användarkonto genom att fylla i formuläret och trycka på skapa konto
+      </p>
       {
       notification && (
         <Notification message={notification.message} type={notification.type} />

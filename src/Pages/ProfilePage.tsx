@@ -54,7 +54,22 @@ function ProfilePage() {
 
     async function createNewUser(newData: Omit<User, 'id' | 'role'>) {
         try {
-            
+            if(!newData.firstname || newData.firstname === '') {
+                showNotification('Förnamn saknas!', 'error');
+                return;
+            }
+            if(!newData.lastname || newData.lastname === '') {
+                showNotification('Efternamn saknas!', 'error');
+                return;
+            }
+            if(!newData.email || newData.email === '') {
+                showNotification('E-post saknas!', 'error');
+                return;
+            }
+            if(!newData.password || newData.password === '') {
+                showNotification('Lösenord saknas!', 'error');
+                return;
+            }
             let url = 'https://tois-dt210g-moment3-backend.onrender.com/users';
 
             const response = await fetch(url, {
@@ -82,7 +97,22 @@ function ProfilePage() {
 
     async function createNewAdmin(newData: Omit<User, 'id' | 'role'>) {
         try {
-
+            if(!newData.firstname || newData.firstname === '') {
+                showNotification('Förnamn saknas!', 'error');
+                return;
+            }
+            if(!newData.lastname || newData.lastname === '') {
+                showNotification('Efternamn saknas!', 'error');
+                return;
+            }
+            if(!newData.email || newData.email === '') {
+                showNotification('E-post saknas!', 'error');
+                return;
+            }
+            if(!newData.password || newData.password === '') {
+                showNotification('Lösenord saknas!', 'error');
+                return;
+            }
             let token = localStorage.getItem('token');
 
             let url = 'https://tois-dt210g-moment3-backend.onrender.com/admin/create-admin';
@@ -112,7 +142,22 @@ function ProfilePage() {
 
     async function updateUser(id: number, newData: Omit<User, "id" | "role">) {
         try {
-            
+            if(!newData.firstname || newData.firstname === '') {
+                showNotification('Förnamn saknas!', 'error');
+                return;
+            }
+            if(!newData.lastname || newData.lastname === '') {
+                showNotification('Efternamn saknas!', 'error');
+                return;
+            }
+            if(!newData.email || newData.email === '') {
+                showNotification('E-post saknas!', 'error');
+                return;
+            }
+            if(!newData.password || newData.password === '') {
+                showNotification('Lösenord saknas!', 'error');
+                return;
+            }
             let url = 'https://tois-dt210g-moment3-backend.onrender.com/users/' + id;
             let token = localStorage.getItem('token');
 

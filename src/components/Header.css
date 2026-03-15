@@ -10,7 +10,7 @@ header {
 }
 
 nav {
-    width: 40%;
+    width: 100%;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -24,7 +24,7 @@ header nav ul {
     flex-wrap: wrap;
     padding: 0;
     width: 100%;
-    border-radius: 10px 0;
+    border-radius: 5px;
     box-shadow: 1px 1px 2px 1px #F7F8F0;
 }
 
@@ -34,9 +34,8 @@ header nav ul li {
     padding: 0;
 }
 
-
-
-header nav ul a, .logout-btn {
+.nav-link {
+    all: unset;
     margin: 0;
     text-decoration: none;
     color: #F7F8F0;
@@ -45,12 +44,26 @@ header nav ul a, .logout-btn {
     display: block;
     border-radius: 5px;
     cursor: pointer;
-    background: none;
-    border: none;
-    font: inherit;
+    text-align: center;
+    box-sizing: border-box;
 }
 
-a:hover, button:hover {
+.logout-btn {
+    all: unset;
+    margin: 0;
+    text-decoration: none;
+    color: #F7F8F0;
+    white-space: nowrap;
+    padding: 0.75rem 1.25rem;
+    display: block;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.nav-link:hover {
     background-color: #7AAACE;
 }
 
@@ -60,13 +73,12 @@ a:hover, button:hover {
 
 /* meny-knapp */
 .menu-btn {
+    all: unset;
     background: none;
     border: none;
     padding: 0;
     margin: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
     cursor: default; 
 }
 .menu-btn:hover {
@@ -89,8 +101,8 @@ a:hover, button:hover {
 @media (max-width: 600px) {
     .menu-btn {
         display: inline-flex;
-        justify-content: flex-end;
-        margin: 0;
+        align-self: flex-end;
+        margin: 1% 2%;
         padding: 0;
     }
 
@@ -105,11 +117,15 @@ a:hover, button:hover {
 
     header nav ul {
         flex-direction: column;
-        width: 100%;
+        align-items: stretch;
         box-shadow: none;
     }
+    header nav ul li {
+        flex: none;
+        width: 100%;
+    }
 
-    a, button {
+    .nav-link {
         width: 100%;
     }
 }

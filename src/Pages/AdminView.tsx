@@ -20,6 +20,9 @@ function AdminView({inloggedUser, otherUsers, createAdmin, createUser, updateUse
 
     return(
         <section>
+            <p>
+                Som inloggad admin har du möjlighet att skapa en ny användare eller admin och se samt hantera andras konton.
+            </p>
             <DataArticle 
                     key={inloggedUser.id}
                     id={inloggedUser.id}
@@ -44,8 +47,11 @@ function AdminView({inloggedUser, otherUsers, createAdmin, createUser, updateUse
                     formType === 'admin' && <UserForm createUser={createAdmin} setFormType={setFormType} formType={formType}/>
                 }
             </div>
-
+            
+            <h3>Andras konton</h3>
             <div className="flex-container">
+                
+                
                 {
                     otherUsers.map((user) => 
                         <DataArticle 

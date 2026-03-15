@@ -47,3 +47,13 @@ h2 {
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.reg-link {
+  text-decoration: underline;
+  color: #355872;
+}
+
+.reg-link:hover {
+  background: none;
+  color: #7AAACE;
+}

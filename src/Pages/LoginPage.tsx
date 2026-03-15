@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Notification from "../components/Notification";
 
 function LoginPage() {
@@ -49,6 +49,12 @@ function LoginPage() {
     return(
         <div>
             <h2>Logga in</h2>
+            <p>
+                I denna sida kan du logga in till ditt konto.
+            </p>
+            <p>
+                Har du inget konto? Klicka <NavLink className="reg-link" to={'/register'}>Här</NavLink> för att skapa
+            </p>
             <fieldset>
                 <legend>Logga in</legend>
                 <form onSubmit={handleSubmit}>

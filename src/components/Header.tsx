@@ -26,15 +26,24 @@ function Header() {
 
             <nav className={isOpen ? "open": ""}>
                 <ul>
-                    <li><NavLink to={'/'}>Startsida</NavLink></li>
-                    <li><NavLink to={'/profile'}>Min sida</NavLink></li>
+                    <li>
+                        <NavLink className="nav-link" to={'/'}>
+                            Startsida
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
+                        className="nav-link"
+                        to={'/profile'}>Min sida
+                        </NavLink>
+                        </li>
                     <li>
                         {
-                            !user ? <NavLink to={'/login'}>Logga in</NavLink> : <button className="logout-btn" onClick={logout}>Logga ut</button>
+                            !user ? <NavLink className="nav-link" to={'/login'}>Logga in</NavLink> : <button className="logout-btn nav-link" onClick={logout}>Logga ut</button>
                         }
                     </li>
                     {
-                        !user && <li><NavLink to={'/register'}>Skapa konto</NavLink></li>
+                        !user && <li><NavLink className="nav-link" to={'/register'}>Skapa konto</NavLink></li>
                     }
                     
                 </ul>
