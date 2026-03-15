@@ -71,8 +71,11 @@ function UserForm({ createUser, setFormType, formType }: UserFormProps) {
           }
         />
         <br />
-
-        <button type="submit">Skapa konto</button>
+        
+        {
+          !setFormType && <button type="submit">Skapa konto</button>
+        }
+        
 
         {/* Om det inte är kontoregistrering */}
         {

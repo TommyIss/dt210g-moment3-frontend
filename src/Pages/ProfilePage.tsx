@@ -128,8 +128,8 @@ function ProfilePage() {
             });
 
             if(response.ok) {
-                const newAdmin = await response.json();
-
+                const data = await response.json();
+                const newAdmin = data.body;
                 showNotification('Ny admin har skapats');
                 setUsers((prev) => [...prev, newAdmin].sort((a: User, b:User) => (a.firstname > b.firstname) ? 1: -1));
                 
