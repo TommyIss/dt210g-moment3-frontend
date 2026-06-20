@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import Notification from "../components/Notification";
+import { NavLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 interface LoginError {
@@ -15,11 +14,6 @@ function LoginPage() {
   const [errors, setErrors] = useState<LoginError>({});
   const { login, user } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const [notification, setNotification] = useState<{
-    message: string;
-    type: "success" | "error";
-  } | null>(null);
 
   const validationSchema = Yup.object({
     email: Yup.string().required("Fyll i e-post").email("Ogiltig e-post"),
@@ -83,12 +77,7 @@ function LoginPage() {
       <fieldset>
         <legend>Logga in</legend>
         <form onSubmit={handleSubmit}>
-          {notification && (
-            <Notification
-              message={notification.message}
-              type={notification.type}
-            />
-          )}
+          
 
           <label htmlFor="email">E-post:</label>
           <br />

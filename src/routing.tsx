@@ -20,19 +20,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/posts',
-                element: (
-                    <ProtectedRoute>
-                        <PostsPage />
-                    </ProtectedRoute>
-                )
+                element: <PostsPage />
             },
             {
                 path: '/posts/:id',
-                element: (
-                    <ProtectedRoute>
-                        <PostDetailsPage />
-                    </ProtectedRoute>
-                )
+                element: <PostDetailsPage />
             },
             {
                 path: '/profile',

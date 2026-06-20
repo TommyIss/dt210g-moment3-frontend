@@ -5,6 +5,7 @@ import UserView from "./UserView";
 import type { User } from "../types/auth.types";
 import { useLocation, useNavigate } from "react-router-dom";
 import Notification from "../components/Notification";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 function ProfilePage() {
 
@@ -249,6 +250,9 @@ function ProfilePage() {
 
     return(
         <div>
+            <Breadcrumbs 
+                pageLabel="Min sida"
+            />
             <h2>Användarprofil</h2>
             <h3>Välkommen {user?.firstname}</h3>
             {

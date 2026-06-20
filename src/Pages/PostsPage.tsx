@@ -3,6 +3,8 @@ import PostArticle from "../components/PostArticle";
 import PostForm from "../components/PostForm";
 import Notification from "../components/Notification";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 export interface Post {
     id: number;
@@ -34,6 +36,7 @@ function PostsPage() {
     const [selectedAuthor, setSelectedAuthor] = useState<number | null>(null);
     const filtredPosts = selectedAuthor ? posts.filter(post => post.author.id === selectedAuthor) : posts;
     const location = useLocation();
+    const {user} = useAuth();
 
     useEffect(() => {
         getPosts();
@@ -53,8 +56,7 @@ function PostsPage() {
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json'
                 }
             });
 
@@ -110,6 +112,10 @@ function PostsPage() {
 
     return (
         <div>
+            <Breadcrumbs 
+                pageLabel="Alla inlägg"
+            />
+
             <h2>Inlägg</h2>
 
             {
@@ -118,7 +124,10 @@ function PostsPage() {
                 type={notification.type}
                 />
             }
-            <button type="button" onClick={() => setFormType('create')}>Skapa nytt inlägg</button>
+
+            {   user &&
+                <button type="button" onClick={() => setFormType('create')}>Skapa nytt inlägg</button>
+            }
 
             {formType === 'create' && (
                 <PostForm 

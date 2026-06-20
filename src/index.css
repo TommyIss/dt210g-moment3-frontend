@@ -19,7 +19,7 @@ main {
 main button, main input[type='submit'] {
   background-color: #355872;
   color: #F7F8F0;
-  margin: 0 2%;
+  margin: 3% 2%;
   padding: 1%;
   border-radius: 10px 0;
   cursor: pointer;
@@ -27,6 +27,11 @@ main button, main input[type='submit'] {
 
 main button:hover, main input[type='submit']:hover {
     background-color: #7AAACE;
+}
+
+textarea {
+  width: 90%;
+  min-height: 100px;
 }
 
 main article {
@@ -57,5 +62,16 @@ h2 {
 
 .reg-link:hover {
   background: none;
+  color: #7AAACE;
+}
+
+.breadcrumbs-links {
+  text-decoration: none;
+  color: #355872;
+  margin: 0 3px;
+}
+
+.breadcrumbs-links:hover {
+  text-decoration: underline;
   color: #7AAACE;
 }

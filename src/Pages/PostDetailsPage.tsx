@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {useLocation, useNavigate, useParams } from "react-router-dom";
 import type { Post } from "./PostsPage";
 import Notification from "../components/Notification";
 import PostForm from "../components/PostForm";
 import { useAuth } from "../context/AuthContext";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 
 function PostDetailsPage() {
@@ -38,8 +39,7 @@ function PostDetailsPage() {
             const response = await fetch(url + id, {
                 method: 'GET', 
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json'
                 }
             });
 
@@ -49,7 +49,6 @@ function PostDetailsPage() {
             }
 
             const data = await response.json();
-            console.log(data);
             
             setPost(data);
         } catch (error) {
@@ -144,6 +143,10 @@ function PostDetailsPage() {
                 />
             ) : (
                 <>
+                    <Breadcrumbs  
+                    pageLabel="Alla inlägg"
+                    itemLabel={post.title}
+                    />
                     <h3>{post.title}</h3>
             
                     <p>Innehåll: {post.content}</p>

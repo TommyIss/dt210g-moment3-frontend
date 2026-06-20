@@ -33,7 +33,7 @@ function Header() {
                     </li>
                     <li>
                         <NavLink className="nav-link" to={'/posts'}>
-                            Inlägg
+                            Alla Inlägg
                         </NavLink>
                     </li>
                     <li>
