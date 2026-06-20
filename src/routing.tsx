@@ -5,6 +5,8 @@ import ProfilePage from "./Pages/ProfilePage";
 import LoginPage from "./Pages/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RegisterPage from "./Pages/RegisterPage";
+import PostsPage from "./Pages/PostsPage";
+import PostDetailsPage from "./Pages/PostDetailsPage";
 
 
 const router = createBrowserRouter([
@@ -15,6 +17,22 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <HomePage />
+            },
+            {
+                path: '/posts',
+                element: (
+                    <ProtectedRoute>
+                        <PostsPage />
+                    </ProtectedRoute>
+                )
+            },
+            {
+                path: '/posts/:id',
+                element: (
+                    <ProtectedRoute>
+                        <PostDetailsPage />
+                    </ProtectedRoute>
+                )
             },
             {
                 path: '/profile',

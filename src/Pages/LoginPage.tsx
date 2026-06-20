@@ -1,95 +1,134 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Notification from "../components/Notification";
+import * as Yup from "yup";
 
+interface LoginError {
+  email?: string;
+  password?: string;
+}
 function LoginPage() {
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-
-    const {login, user} = useAuth();
-    const navigate = useNavigate();
-
-    const [notification, setNotification] = useState<{
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [errors, setErrors] = useState<LoginError>({});
+  const { login, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [notification, setNotification] = useState<{
     message: string;
     type: "success" | "error";
   } | null>(null);
 
+  const validationSchema = Yup.object({
+    email: Yup.string().required("Fyll i e-post").email("Ogiltig e-post"),
+    password: Yup.string().required("Fyll i lösenord"),
+  });
 
-  // Visa notis
-  function showNotification(
-    message: string,
-    type: "success" | "error" = "success",
-  ) {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
+  // Kontrollera användaren
+  useEffect(() => {
+    if (user) {
+      let pathname = localStorage.getItem('pathname');
+      if(pathname) {
+        navigate(pathname);
+        return;
+      }
+      navigate("/profile");
+    }
+  }, [user]);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+
+    try {
+      await validationSchema.validate(
+        { email, password },
+        { abortEarly: false },
+      );
+
+      await login({ email, password });
+      navigate("/profile");
+    } catch (errors) {
+      const validatiosErrors: LoginError = {};
+
+      if (errors instanceof Yup.ValidationError) {
+        errors.inner.forEach((error) => {
+          const prop = error.path as keyof LoginError;
+          validatiosErrors[prop] = error.message;
+        });
+
+        setErrors(validatiosErrors);
+        return;
+      }
+
+      setError(
+        "Inloggningen misslyckades. Kontrollera att du har korrekt e-post och lösenord.",
+      );
+    }
   }
 
-    // Kontrollera användaren
-    useEffect(() => {
-        if(user) {
-            navigate('/profile');
-        }
-    }, [user])
+  return (
+    <div>
+      <h2>Logga in</h2>
+      <p>I denna sida kan du logga in till ditt konto.</p>
+      <p>
+        Har du inget konto? Klicka{" "}
+        <NavLink className="reg-link" to={"/register"}>
+          Här
+        </NavLink>{" "}
+        för att skapa
+      </p>
+      <fieldset>
+        <legend>Logga in</legend>
+        <form onSubmit={handleSubmit}>
+          {notification && (
+            <Notification
+              message={notification.message}
+              type={notification.type}
+            />
+          )}
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        setError('');
+          <label htmlFor="email">E-post:</label>
+          <br />
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          {errors.email && (
+            <span style={{ color: "red", marginLeft: "5px" }}>
+              {errors.email}
+            </span>
+          )}
 
-        try {
-            await login({email, password});
-            navigate('/profile');
-        } catch (err) {
-            setError('Inloggningen misslyckades. Kontrollera att du har korrekt e-post och lösenord.');
-            showNotification(error, 'error');
-        }
-    }
+          <br />
 
-    return(
-        <div>
-            <h2>Logga in</h2>
-            <p>
-                I denna sida kan du logga in till ditt konto.
-            </p>
-            <p>
-                Har du inget konto? Klicka <NavLink className="reg-link" to={'/register'}>Här</NavLink> för att skapa
-            </p>
-            <fieldset>
-                <legend>Logga in</legend>
-                <form onSubmit={handleSubmit}>
-                    {
-                    notification && (
-                        <Notification message={notification.message} type={notification.type} />
-                    )
-                    }
+          <label htmlFor="password">Lösenord:</label>
+          <br />
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          {errors.password && (
+            <span style={{ color: "red", marginLeft: "5px" }}>
+              {errors.password}
+            </span>
+          )}
 
-                    <label htmlFor="email">E-post:</label>
-                    <br />
-                    <input type="email" 
-                    id="email"
-                    required
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    />
-
-                    <br />
-                    <label htmlFor="password">Lösenord:</label>
-                    <br />
-                    <input type="password"
-                    id="password"
-                    required
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    />
-
-                    <br />
-                    <input type="submit" value="Logga in" />
-                </form>
-            </fieldset>
-        </div>
-    )
+          <br />
+          <input type="submit" value="Logga in" />
+          {error && (
+            <span style={{ color: "red", marginLeft: "5px" }}>{error}</span>
+          )}
+        </form>
+      </fieldset>
+    </div>
+  );
 }
 
 export default LoginPage;

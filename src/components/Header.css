@@ -98,6 +98,16 @@ header nav ul li {
     background-color: #7AAACE;
 }
 
+.postTitles, .showContentLinks {
+    text-decoration: none;
+    color: #355872;
+}
+
+.postTitles:hover, .showContentLinks:hover {
+    text-decoration: underline;
+    color: #7AAACE;
+}
+
 @media (max-width: 600px) {
     .menu-btn {
         display: inline-flex;

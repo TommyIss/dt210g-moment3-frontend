@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import AdminView from "./AdminView";
 import UserView from "./UserView";
 import type { User } from "../types/auth.types";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Notification from "../components/Notification";
 
 function ProfilePage() {
@@ -17,10 +17,13 @@ function ProfilePage() {
         type: 'success' | 'error'
     }| null>(null);
 
+    const location = useLocation();
+
     useEffect(() => {
         if(user?.role === 'admin') {
             getUsers();
         }
+        localStorage.setItem('pathname', location.pathname);
     }, []);
 
     // Visa notis
@@ -143,22 +146,7 @@ function ProfilePage() {
 
     async function updateUser(id: number, newData: Omit<User, "id" | "role">) {
         try {
-            if(!newData.firstname || newData.firstname === '') {
-                showNotification('Förnamn saknas!', 'error');
-                return;
-            }
-            if(!newData.lastname || newData.lastname === '') {
-                showNotification('Efternamn saknas!', 'error');
-                return;
-            }
-            if(!newData.email || newData.email === '') {
-                showNotification('E-post saknas!', 'error');
-                return;
-            }
-            if(!newData.password || newData.password === '') {
-                showNotification('Lösenord saknas!', 'error');
-                return;
-            }
+            
             let url = 'https://tois-dt210g-moment3-backend.onrender.com/users/' + id;
             let token = localStorage.getItem('token');
 

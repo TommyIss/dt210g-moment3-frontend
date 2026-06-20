@@ -32,6 +32,11 @@ function Header() {
                         </NavLink>
                     </li>
                     <li>
+                        <NavLink className="nav-link" to={'/posts'}>
+                            Inlägg
+                        </NavLink>
+                    </li>
+                    <li>
                         <NavLink 
                         className="nav-link"
                         to={'/profile'}>Min sida
